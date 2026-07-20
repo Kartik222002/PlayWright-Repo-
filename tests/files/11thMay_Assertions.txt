@@ -1,0 +1,73 @@
+
+//Assertion types - Hard assertions & soft assertions
+
+//Hard assertion - If the assertion fails, the test will stop executing and be marked as failed.
+
+//Soft Assertion - If the assertion fails, the test will continue executing and be marked as failed at the end of the test.
+
+import { test, expect, Locator } from '@playwright/test'
+
+test.skip('hard assertion example', async ({ page }) => {
+  await page.goto('https://tutorialsninja.com/demo/')
+
+ await expect(page).toHaveTitle(' Store') 
+ //After this line, since assertion failed, rest the statements were not executed and test was marked as failed
+
+ await expect(page).toHaveURL('https://tutorialsninja.com/demo/') 
+
+ let logo: Locator=page.locator('//a[text()="Qafox.com"]')
+
+ await expect(logo).toBeVisible() 
+
+ await page.pause()
+})
+
+test('soft assertion example', async ({ page }) => {
+  await page.goto('https://tutorialsninja.com/demo/')
+
+ await expect.soft(page).toHaveTitle(' Store') 
+ //After this line, since assertion failed, rest the statements will be executed and test was marked as failed
+
+ await expect.soft(page).toHaveURL('https://tutorialsninja.com/demo/') 
+
+ let logo: Locator=page.locator('//a[text()="Qafox.com"]')
+
+ await expect.soft(logo).toBeVisible() 
+
+ await page.pause()
+})
+
+-----------------------------------------------------------------------------------
+
+
+import {expect, Locator, test} from '@playwright/test';
+
+test('autoretrying vs non retrying assertion', async({page})=>{ 
+
+  await page.goto('https://tutorialsninja.com/demo/')
+
+  //auto retry assertion will wait for the default time of 5 seconds if assertion is failed
+  //here we apply assertion on a page or a locator
+
+  await expect(page).toHaveTitle(' Store') //this line gets faile
+   
+    await expect(page).toHaveURL('https://tutorialsninja.com/demo/') 
+   
+    let logo: Locator=page.locator('//a[text()="Qafox.com"]')
+   
+    await expect(logo).toBeVisible() 
+   
+    await page.pause() 
+
+    //In non retrying assertion, default time is not applicable
+    //here we apply assertion on a value not an page or locator
+
+   /*  let title: string=await page.title()
+
+    expect(title).toBe(' Store') 
+ */
+    //expect(title.includes('Store')).toBeTruthy()
+  
+
+
+})

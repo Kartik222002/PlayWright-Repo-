@@ -1,0 +1,23 @@
+getByPlaceHolder - use this when there is placeholder tag is present in DOM 
+getByLable - use this when there is lable tag is present in the DOM 
+
+fill() - use to take input from user/keyboard
+isVisisble() - is used to verify web element is visible or not 
+innertext() - is used to fetch the text from webelement //if there is space at the last that is going to be ignore and only the text will going to print in console 
+textContent() - is used to to fetch the text from webelement //if there is space at the last that thing also will be consider and going to print in the console 
+getByTitle() - use when there is title attribute present in DOM 
+getByAltText() - mostly use for the image verification //alt tag should be there 
+getByRole() - await page.getByRole('textbox', {name: 'Telephone'}).fill('65674654') //  ('textbox', {name: 'Name provided from label tag'})
+
+
+drop down -
+we have two types of drop down :-
+1)static drop down (the drop down which consist a select tag in it )
+2)dynamic dropdown/Bootstrap drop down (drop down with out select tag in it ) also called as hidden drop down value is not visible in the dom thats why we called it as a hidden dropdown
+
+ways to pasue a dynamic dropdown - 
+ex - take a flipcart seach bar , after search if you try to inspect that text area that will disappear again and again to stop that or to freeze that we have digfferent different option 
+step:- 1)search something 
+       2)right click ,then inspect 
+       3)cntrl+shift+B
+       4)type command in that box -> emulate a focoused page

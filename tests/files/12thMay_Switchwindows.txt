@@ -1,0 +1,50 @@
+
+
+import {Page, test} from '@playwright/test'
+
+test('switch between the windows', async({page})=>{
+
+   await page.goto('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
+
+  let parentPage:Page =page
+
+  //move to the child window
+
+ let  [childpage] = await Promise.all([              
+  page.context().waitForEvent('page'),
+  page.locator('//a[text()="OrangeHRM, Inc"]').click()
+  ])
+
+ await childpage.waitForLoadState()
+
+ console.log("The title of the child page is : " + await childpage.title())
+
+await childpage.locator('//button[text()="Contact Sales"]').click()
+
+await page.waitForTimeout(4000)
+
+//To switch back to the parent window page
+await parentPage.bringToFront()
+
+ await parentPage.waitForLoadState()
+
+ console.log("The title of the parent window page is : " + await parentPage.title())
+
+ await parentPage.locator('//input[@name="username"]').fill('Admin')
+
+ await page.waitForTimeout(4000)
+
+ //To switch back to the child window page
+
+ await childpage.bringToFront()
+  await parentPage.waitForLoadState()
+
+  console.log("The title of the child page is : " + await childpage.title())
+
+await childpage.locator('//button[text()="Contact Sales"]').first().click()
+
+ await page.waitForTimeout(4000)
+
+
+
+})
